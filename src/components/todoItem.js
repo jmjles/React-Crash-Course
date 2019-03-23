@@ -13,16 +13,14 @@ export class todoItem extends Component {
         }
     }
 
-    markComplete = (e) => {
-        console.log(this.props);
-        
-    }
     render() {
-    return (
+      const { id, title } = this.props.todo;
+      return (
       <div style={this.getStyle()}>
         <p>
-            <input type="checkbox" onChange={this.markComplete}></input>
-            {this.props.todo.title}
+          <input type="checkbox" onChange={this.props.markComplete.bind(this, id)}/>
+          {title}
+          <button style={btnStyle} onClick={this.props.delTodo.bind(this, id)}>X</button>
         </p>
       </div>
     )
@@ -31,5 +29,10 @@ export class todoItem extends Component {
 
 todoItem.propTypes = {
     todo: PropTypes.object.isRequired
+}
+const btnStyle = {
+  background: 'red',
+  color:'black',
+  border:'none',
 }
 export default todoItem
