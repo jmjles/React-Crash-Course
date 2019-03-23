@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Todos from './components/Todos'
+import Todos from './components/Todos';
+import Header from './components/layout/header';
+import { AddTodo } from './components/AddTodo';
 
 class App extends Component {
   state = {
@@ -38,10 +40,25 @@ class App extends Component {
       todos: [...this.state.todos.filter(todo => todo.id !== id)]
     })
   }
+
+  addTodo = (title) => {
+    let randomNumber = () => {
+      let r = Math.random(1,1000);
+      return r;
+    }
+    const newTodo = {
+      id:randomNumber(),
+      title,
+      completed: false
+    }
+    this.setState({todos: [...this.state.todos, newTodo]})
+  }
+
   render() {
     return (
       <div className="App">
-        <h1>App</h1>
+        <Header/>
+        <AddTodo addTodo= {this.addTodo}/>
         <Todos todos = {this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo}/>
       </div>
     );
